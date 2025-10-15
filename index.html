@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-clock"></i> Countdown Timer</h1>
+            <button id="adminToggle" class="admin-toggle">
+                <i class="fas fa-cog"></i> Admin
+            </button>
+        </header>
+
+        <!-- Admin Panel -->
+        <div id="adminPanel" class="admin-panel hidden">
+            <div class="admin-content">
+                <h2>Admin Panel</h2>
+                <form id="countdownForm" class="countdown-form">
+                    <div class="form-group">
+                        <label for="countdownName">Countdown Name:</label>
+                        <input type="text" id="countdownName" placeholder="Enter countdown name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="countdownDate">Target Date & Time:</label>
+                        <input type="datetime-local" id="countdownDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="countdownColor">Color Theme:</label>
+                        <select id="countdownColor">
+                            <option value="blue">Blue</option>
+                            <option value="green">Green</option>
+                            <option value="purple">Purple</option>
+                            <option value="red">Red</option>
+                            <option value="orange">Orange</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Countdown
+                        </button>
+                        <button type="button" id="cancelEdit" class="btn btn-secondary hidden">
+                            <i class="fas fa-times"></i> Cancel Edit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Countdowns Display -->
+        <main class="countdowns-container">
+            <div id="countdownsList" class="countdowns-list">
+                <!-- Countdowns will be dynamically added here -->
+            </div>
+            <div id="emptyState" class="empty-state">
+                <i class="fas fa-calendar-plus"></i>
+                <h3>No countdowns yet</h3>
+                <p>Add your first countdown using the admin panel</p>
+            </div>
+        </main>
+
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <h2>Admin Access</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" placeholder="Enter admin password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
