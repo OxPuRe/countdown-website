@@ -1,16 +1,18 @@
 // Countdown Timer Application
 class CountdownApp {
     constructor() {
-        this.countdowns = JSON.parse(localStorage.getItem("countdowns")) || [];
+        this.countdowns = [];
         this.isAdmin = localStorage.getItem("isAdmin") === "true";
         this.editingId = null;
         this.adminPassword = "admin123"; // Change this to your desired password
+        this.dataFile = "countdowns.json"; // JSON file to store data
         
         this.init();
     }
 
-    init() {
+    async init() {
         this.bindEvents();
+        await this.loadCountdowns();
         this.renderCountdowns();
         this.updateAdminUI();
         this.startTimer();
@@ -175,8 +177,56 @@ class CountdownApp {
         }
     }
 
-    saveCountdowns() {
+    async loadCountdowns() {
+        // Try to load from URL parameter first (for sharing)
+        const urlParams = new URLSearchParams(window.location.search);
+        const sharedData = urlParams.get('data');
+        
+        if (sharedData) {
+            try {
+                this.countdowns = JSON.parse(decodeURIComponent(sharedData));
+                return;
+            } catch (error) {
+                console.log("Invalid shared data, falling back to localStorage");
+            }
+        }
+        
+        // Fallback to localStorage
+        const saved = localStorage.getItem("countdowns");
+        this.countdowns = saved ? JSON.parse(saved) : [];
+    }
+
+    async saveCountdowns() {
+        if (!this.isAdmin) {
+            console.log("Only admin can save countdowns");
+            return;
+        }
+        
+        // Save to localStorage
         localStorage.setItem("countdowns", JSON.stringify(this.countdowns));
+        
+        // Generate shareable URL
+        const shareableData = encodeURIComponent(JSON.stringify(this.countdowns));
+        const shareableUrl = `${window.location.origin}${window.location.pathname}?data=${shareableData}`;
+        
+        // Show shareable URL to admin
+        this.showShareUrl(shareableUrl);
+    }
+
+    showShareUrl(url) {
+        // Create a simple modal to show the shareable URL
+        const modal = document.createElement('div');
+        modal.className = 'modal show';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h2>Share Countdowns</h2>
+                <p>Copy this URL to share the countdowns with others:</p>
+                <input type="text" value="${url}" readonly style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+                <button onclick="navigator.clipboard.writeText('${url}'); this.textContent='Copied!'" class="btn btn-primary">Copy URL</button>
+                <button onclick="this.closest('.modal').remove()" class="btn btn-secondary">Close</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
     }
 
     renderCountdowns() {
