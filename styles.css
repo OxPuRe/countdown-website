@@ -38,10 +38,19 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
+    margin: 0;
+}
+
+.header-subtitle {
+    font-size: 1.1rem;
+    color: #718096;
+    font-weight: 500;
+    margin-top: 5px;
+    letter-spacing: 0.5px;
 }
 
 .header h1 i {
-    color: #667eea;
+    color: #e53e3e;
 }
 
 .admin-toggle {
@@ -303,14 +312,28 @@ body {
     margin-top: 15px;
 }
 
+.countdown-target::before {
+    content: "Release Date: ";
+    font-weight: 600;
+    color: #4a5568;
+}
+
 .countdown-expired {
     text-align: center;
     padding: 20px;
-    background: #fed7d7;
-    color: #c53030;
+    background: #c6f6d5;
+    color: #2f855a;
     border-radius: 12px;
     font-weight: 600;
     font-size: 1.2rem;
+}
+
+.countdown-expired::before {
+    content: "🎉 ";
+}
+
+.countdown-expired::after {
+    content: " - You're FREE!";
 }
 
 /* Empty State */
