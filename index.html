@@ -12,8 +12,13 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <h1><i class="fas fa-gavel"></i> Freedom Countdown</h1>
-            <div class="header-subtitle">Days Until Release</div>
+            <div class="header-content">
+                <h1><i class="fas fa-gavel"></i> Freedom Countdown</h1>
+                <div class="header-subtitle">Days Until Release</div>
+                <div class="timezone-info">
+                    <i class="fas fa-clock"></i> Paris Time: <span id="parisTime"></span>
+                </div>
+            </div>
             <button id="adminToggle" class="admin-toggle">
                 <i class="fas fa-cog"></i> Admin
             </button>
@@ -29,8 +34,11 @@
                         <input type="text" id="countdownName" placeholder="Enter inmate name or countdown title" required>
                     </div>
                     <div class="form-group">
-                        <label for="countdownDate">Release Date & Time:</label>
+                        <label for="countdownDate">Release Date & Time (Paris Time):</label>
                         <input type="datetime-local" id="countdownDate" required>
+                        <small style="color: #718096; font-size: 0.8rem; margin-top: 4px; display: block;">
+                            Times are automatically converted to Paris timezone
+                        </small>
                     </div>
                     <div class="form-group">
                         <label for="countdownColor">Color Theme:</label>

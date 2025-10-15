@@ -14,6 +14,7 @@ class CountdownApp {
         this.renderCountdowns();
         this.updateAdminUI();
         this.startTimer();
+        this.updateParisTime();
     }
 
     bindEvents() {
@@ -195,6 +196,11 @@ class CountdownApp {
     createCountdownHTML(countdown) {
         const now = new Date();
         const target = new Date(countdown.targetDate);
+        
+        // Convert to Paris time (CET/CEST)
+        const parisTime = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Paris"}));
+        const targetParisTime = new Date(target.toLocaleString("en-US", {timeZone: "Europe/Paris"}));
+        
         const timeLeft = target - now;
 
         if (timeLeft <= 0) {
@@ -217,7 +223,7 @@ class CountdownApp {
                         <i class="fas fa-check-circle"></i> Time's up!
                     </div>
                     <div class="countdown-target">
-                        Target: ${target.toLocaleString()}
+                        Target: ${target.toLocaleString("en-GB", {timeZone: "Europe/Paris", timeZoneName: "short"})}
                     </div>
                 </div>
             `;
@@ -262,7 +268,7 @@ class CountdownApp {
                     </div>
                 </div>
                 <div class="countdown-target">
-                    Target: ${target.toLocaleString()}
+                    Target: ${target.toLocaleString("en-GB", {timeZone: "Europe/Paris", timeZoneName: "short"})}
                 </div>
             </div>
         `;
@@ -271,7 +277,26 @@ class CountdownApp {
     startTimer() {
         setInterval(() => {
             this.renderCountdowns();
+            this.updateParisTime();
         }, 1000);
+    }
+
+    updateParisTime() {
+        const now = new Date();
+        const parisTime = now.toLocaleString("en-GB", {
+            timeZone: "Europe/Paris",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        });
+        
+        const parisTimeElement = document.getElementById("parisTime");
+        if (parisTimeElement) {
+            parisTimeElement.textContent = parisTime;
+        }
     }
 
     escapeHtml(text) {

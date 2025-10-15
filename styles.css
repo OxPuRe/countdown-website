@@ -31,6 +31,12 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
+.header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 .header h1 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -45,8 +51,20 @@ body {
     font-size: 1.1rem;
     color: #718096;
     font-weight: 500;
-    margin-top: 5px;
     letter-spacing: 0.5px;
+}
+
+.timezone-info {
+    font-size: 0.9rem;
+    color: #4a5568;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.timezone-info i {
+    color: #667eea;
 }
 
 .header h1 i {
@@ -411,6 +429,10 @@ body {
         flex-direction: column;
         gap: 20px;
         text-align: center;
+    }
+    
+    .header-content {
+        align-items: center;
     }
     
     .header h1 {
